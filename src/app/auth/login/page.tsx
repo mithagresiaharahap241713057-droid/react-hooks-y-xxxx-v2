@@ -86,7 +86,7 @@ const LoginPage = () => {
         }
 
         localStorage.setItem("isLogin", "true");
-
+        document.cookie = "token=true; path=/; max-age=3600";
         toast.success('Login Berhasil!');
         router.push('/home');
     };
