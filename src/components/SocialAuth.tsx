@@ -2,11 +2,12 @@
 
 import { FaGoogle, FaGithub, FaFacebook, FaCheck } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation'; // Import useRouter
 
 const SocialAuth = () => {
+    const router = useRouter(); // Inisialisasi router
 
     const handleSocialLogin = (provider: string) => {
-        // 🔥 Pesan sesuai provider
         let message = '';
 
         if (provider === 'Google') {
@@ -17,19 +18,28 @@ const SocialAuth = () => {
             message = 'Facebook Login Berhasil!';
         }
 
-        // 🔥 Toast
+        // 1. Tampilkan Toast Sukses
         toast.success(message, {
             position: 'top-right',
             icon: <FaCheck className="text-green-400" />,
         });
 
-        // 🔥 OPTIONAL (biar dianggap login)
+        // 2. Set Cookie Token (PENTING: Agar lolos Middleware)
+        // Kita set token buatan agar middleware mengizinkan masuk ke /home
+        document.cookie = "token=social-login-success; path=/; max-age=3600"; 
+
+        // 3. Simpan status di localStorage
         localStorage.setItem("isLogin", "true");
+
+        // 4. Redirect ke halaman Home
+        // Gunakan setTimeout sedikit agar user sempat melihat toast sukses
+        setTimeout(() => {
+            router.push('/home');
+        }, 1000);
     };
 
     return (
         <div className="space-y-4 mt-4">
-
             {/* Divider */}
             <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -44,7 +54,6 @@ const SocialAuth = () => {
 
             {/* Buttons */}
             <div className="flex space-x-4 justify-center">
-
                 <button
                     type="button"
                     onClick={() => handleSocialLogin('Google')}
@@ -68,7 +77,6 @@ const SocialAuth = () => {
                 >
                     <FaFacebook className="text-xl text-blue-600" />
                 </button>
-
             </div>
         </div>
     );
