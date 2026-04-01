@@ -59,23 +59,23 @@ const LoginPage = () => {
                 u.email === formData.email &&
             u.password === formData.password
         );
-        // VALIDASI EMAIL
+        const isDefaultUser =
+        formData.email === "3057@gmail.com" &&
+        formData.password === "241713057";
+      // VALIDASI EMAIL
         if (!formData.email.trim()) {
             newErrors.email = 'Email tidak boleh kosong';
-        } else if (formData.email !== "3057@gmail.com") {
-            newErrors.email = 'Email harus sesuai dengan format npm kalian (cth. 3057@gmail.com)';
-        } else if (!user) {
-            newErrors.email = 'Email belum terdaftar';
-        }
-        // VALIDASI PASSWORD
-        if (!formData.password.trim()) {
-            newErrors.password = 'Password tidak boleh kosong';
-        } else if (formData.password !== "241713057") {
-            newErrors.password = 'Password harus sesuai dengan format npm kalian (cth. 241713057)';
-        } else if (!user) {
-            newErrors.password = 'Password salah atau belum terdaftar';
+        } else if (!isDefaultUser && !user) {
+            newErrors.email = 'Email tidak terdaftar';
         }
 
+    // VALIDASI PASSWORD
+        if (!formData.password.trim()) {
+            newErrors.password = 'Password tidak boleh kosong';
+        } else if (!isDefaultUser && !user) {
+             newErrors.password = 'Password salah atau belum terdaftar';
+        }
+        
         if (!formData.captchaInput.trim()) {
             newErrors.captcha = 'Captcha belum diisi';
         } else if (formData.captchaInput !== captcha) {
