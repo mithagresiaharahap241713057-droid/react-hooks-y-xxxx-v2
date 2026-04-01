@@ -9,7 +9,7 @@ export default function HomePage() {
 
   const handleLogout = () => {
     // 1. Logika Hapus Cookie Login (Sesuai Middleware)
-    
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     // 2. Redirect ke Google
     window.location.href = "/auth/login";
   };
