@@ -53,7 +53,7 @@ export default function HomePage() {
           
           {/* GANTI DI SINI: Tombol Game 2 (Emerald) - Snake Coin */}
           <Link 
-            href="/poop-survivors" 
+            href="/snack-koin" 
             className="flex items-center justify-center gap-3 bg-emerald-600 text-white px-8 py-4 rounded-xl shadow-md hover:bg-emerald-700 transition-all font-bold active:scale-95 w-full sm:w-auto"
           >
             Snake Coin <span className="text-xl">🐍</span>
