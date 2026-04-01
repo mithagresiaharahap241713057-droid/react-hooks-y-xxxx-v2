@@ -12,27 +12,26 @@ export default function GameEekEnhancedPage() {
   // --- STATE CORE GAME ---
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
-  const [power, setPower] = useState(1); // Default Klik: +1 Poin
+  const [power, setPower] = useState(1); 
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
 
   // --- HARGA & STATUS UPGRADE ---
-  const [costPower, setCostPower] = useState(10); // Harga Klik
-  const [costAuto, setCostAuto] = useState(20);  // Harga Auto Klik
-  const [costDouble, setCostDouble] = useState(50); // Harga Double Poin
-  const [costX5, setCostX5] = useState(100);    // Harga x5 Poin
+  const [costPower, setCostPower] = useState(10); 
+  const [costAuto, setCostAuto] = useState(20);  
+  const [costDouble, setCostDouble] = useState(50); 
+  const [costX5, setCostX5] = useState(100);    
 
   const [activeAuto, setActiveAuto] = useState(0); // Poin per detik
 
   // --- LOGIKA PROGRESS BAR & TARGET ---
-  const currentTarget = TARGETS_PER_LEVEL[level - 1] || 1000000; // Target level saat ini
+  const currentTarget = TARGETS_PER_LEVEL[level - 1] || 1000000; 
   const progressPercentage = (score / currentTarget) * 100;
 
   // --- 1. Fungsi Klik Manual ---
   const handleMainClick = () => {
     if (isGameOver || isGameWon) return; // Mati kalau game selesai
     setScore((s) => s + power);
-    // Notifikasi Poin Terapung (Opsional, tapi bikin seru)
     toast.info(`+${power} 💩`, { position: "top-right", autoClose: 500 });
   };
 
@@ -43,9 +42,8 @@ export default function GameEekEnhancedPage() {
         // Naik Level
         setLevel((l) => l + 1);
         toast.success(`LEVEL UP! 🎉 Target Level ${level + 1}: ${TARGETS_PER_LEVEL[level]} Poin`);
-        setScore(0); // Reset Skor ke 0 untuk Level Baru (Biar menantang)
+        setScore(0); 
       } else {
-        // MENANG GAME TOTAL
         setIsGameWon(true);
         toast.success("MENANG BESAR! 🏆 Kamu Penguasa EEK Sejati!", { autoClose: 10000 });
       }
@@ -69,7 +67,7 @@ export default function GameEekEnhancedPage() {
     if (score >= costPower) {
       setScore((s) => s - costPower);
       setPower((p) => p + 1);
-      setCostPower((c) => Math.ceil(c * 1.5)); // Harga Naik
+      setCostPower((c) => Math.ceil(c * 1.5)); 
       toast.info(`Klik Diupgrade! Power sekarang ${power + 1}`);
     } else {
       toast.error("Poin tidak cukup!", { position: "top-center" });
@@ -81,7 +79,7 @@ export default function GameEekEnhancedPage() {
     if (score >= costAuto) {
       setScore((s) => s - costAuto);
       setActiveAuto((a) => a + 1);
-      setCostAuto((c) => Math.ceil(c * 2)); // Harga Naik
+      setCostAuto((c) => Math.ceil(c * 2)); 
       toast.info(`Auto Klik Aktif! +${activeAuto + 1}/s`);
     } else {
       toast.error("Poin tidak cukup!", { position: "top-center" });
@@ -93,7 +91,7 @@ export default function GameEekEnhancedPage() {
     if (score >= costDouble) {
       setScore((s) => s - costDouble);
       setPower((p) => p * 2);
-      setCostDouble((c) => Math.ceil(c * 5)); // Harga Naik Gila-gilaan
+      setCostDouble((c) => Math.ceil(c * 5)); 
       toast.success("DOUBLE POIN! Klik kamu 2x lebih kuat!");
     } else {
       toast.error("Poin tidak cukup!", { position: "top-center" });
@@ -105,14 +103,14 @@ export default function GameEekEnhancedPage() {
     if (score >= costX5) {
       setScore((s) => s - costX5);
       setPower((p) => p * 5);
-      setCostX5((c) => Math.ceil(c * 10)); // Harga Naik Sangat Gila
+      setCostX5((c) => Math.ceil(c * 10)); 
       toast.success("X5 POIN! Klik kamu 5x lebih kuat!");
     } else {
       toast.error("Poin tidak cukup!", { position: "top-center" });
     }
   };
 
-  // Fungsi Reset Game (Untuk Menang/Kalah)
+  // Fungsi Reset Game
   const resetGame = () => {
     setScore(0);
     setLevel(1);
@@ -127,14 +125,8 @@ export default function GameEekEnhancedPage() {
   return (
     // Background Gelap Utama
     <main className="min-h-screen w-full bg-[#0a0e17] text-white p-4 md:p-10 flex flex-col items-center font-sans">
-      
-      {/* Container Toast untuk Notifikasi */}
       <ToastContainer position="top-right" autoClose={1500} theme="dark" />
-
-      {/* --- KARTU GAME UTAMA (Oranye) --- */}
       <div className="bg-[#f07c00] w-full max-w-[650px] rounded-[40px] p-8 md:p-12 shadow-[0_25px_80px_-20px_rgba(240,124,0,0.4)] flex flex-col items-center border-4 border-[#ff9500]/70">
-        
-        {/* Header Title */}
         <h1 className="text-4xl md:text-6xl font-black text-[#ffee00] mb-3 tracking-tighter drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)]">
           Game EEK <span className="text-5xl">💩</span>
         </h1>
@@ -238,7 +230,7 @@ export default function GameEekEnhancedPage() {
             <span className="text-3xl">🆙</span> Auto Klik ( 💩 {costAuto} )
           </button>
 
-          {/* Double Poin (Hanya sekali beli, jadi +2 Power sekaligus) - Sesuai Gambar 1 */}
+          {/* Double Poin (Hanya sekali beli, jadi +2 Power sekaligus)*/}
           <button 
             onClick={buyUpgradeDouble}
             disabled={isGameOver || isGameWon || score < costDouble}
@@ -248,10 +240,10 @@ export default function GameEekEnhancedPage() {
                 : 'bg-white/30 text-white/50 border-white/10 cursor-not-allowed'
               }`}
           >
-            <span className="text-3xl">⊗</span> Double Poin ( 💩 {costDouble} )
+            <span className="text-3xl">‼️</span> Double Poin ( 💩 {costDouble} )
           </button>
           
-          {/* x5 Poin (Hanya sekali beli) - Sesuai Gambar 1 */}
+          {/* x5 Poin (Hanya sekali beli)*/}
           <button 
             onClick={buyUpgradex5}
             disabled={isGameOver || isGameWon || score < costX5}
@@ -266,7 +258,7 @@ export default function GameEekEnhancedPage() {
 
         </div>
 
-        {/* --- TOMBOL BACK TO MENU (Sesuai Gambar 1) --- */}
+        {/* --- TOMBOL BACK TO MENU  --- */}
         <Link href="/home" className="bg-[#334155] text-white px-12 py-4 rounded-xl font-bold text-xl hover:bg-[#1e293b] transition-all shadow-lg active:scale-95 border-2 border-white/10">
           Back to Game Selection
         </Link>
