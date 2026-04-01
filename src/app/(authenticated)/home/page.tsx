@@ -10,7 +10,7 @@ export default function HomePage() {
   const handleLogout = () => {
     // 1. Logika Hapus Cookie Login (Sesuai Middleware)
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // 2. Redirect ke Google
+    // 2. Redirect ke Login
     window.location.href = "/auth/login";
   };
 
@@ -23,10 +23,10 @@ export default function HomePage() {
           Selamat Datang!
         </h1>
         
-        {/* Tombol Merah (Keluar) - Pakai Emoji Power */}
+        {/* Tombol Merah Power (Keluar) */}
         <button 
           onClick={handleLogout}
-          title="Keluar ke Google"
+          title="Keluar"
           className="bg-red-600 text-white w-14 h-14 rounded-full shadow-lg hover:bg-red-700 active:scale-95 transition-all flex items-center justify-center text-2xl border-4 border-red-500/50"
         >
           ⏻
@@ -34,7 +34,7 @@ export default function HomePage() {
       </div>
 
       {/* Main Game Menu Card */}
-      <div className="bg-[#10141d] w-[90%] max-w-[500px] h-[60vh] rounded-3xl flex flex-col items-center justify-center p-8 shadow-2xl border border-white/10">
+      <div className="bg-[#10141d] w-[90%] max-w-[600px] h-auto min-h-[50vh] rounded-3xl flex flex-col items-center justify-center p-8 shadow-2xl border border-white/10">
         
         <h2 className="text-3xl font-bold text-white mb-10 tracking-tight text-center">
           Choose Your Game
@@ -43,20 +43,20 @@ export default function HomePage() {
         {/* Game Buttons Container */}
         <div className="flex flex-col sm:flex-row gap-4 mb-12 w-full justify-center items-center">
           
-          {/* Tombol Game 1 (Oranye) */}
+          {/* Tombol Game 1 (Oranye) - Game EEK */}
           <Link 
             href="/game-eek" 
-            className="flex items-center gap-3 bg-orange-600 text-white px-8 py-3 rounded-xl shadow-md hover:bg-orange-700 transition-all font-bold active:scale-95"
+            className="flex items-center justify-center gap-3 bg-orange-600 text-white px-8 py-4 rounded-xl shadow-md hover:bg-orange-700 transition-all font-bold active:scale-95 w-full sm:w-auto"
           >
             Game EEK <span className="text-xl">💩</span>
           </Link>
           
-          {/* Tombol Game 2 (Hijau) */}
+          {/* GANTI DI SINI: Tombol Game 2 (Emerald) - Snake Coin */}
           <Link 
             href="/poop-survivors" 
-            className="flex items-center gap-3 bg-emerald-600 text-white px-8 py-3 rounded-xl shadow-md hover:bg-emerald-700 transition-all font-bold active:scale-95"
+            className="flex items-center justify-center gap-3 bg-emerald-600 text-white px-8 py-4 rounded-xl shadow-md hover:bg-emerald-700 transition-all font-bold active:scale-95 w-full sm:w-auto"
           >
-            Poop Survivors <span className="text-xl">🧻</span>
+            Snake Coin <span className="text-xl">🐍</span>
           </Link>
 
         </div>
