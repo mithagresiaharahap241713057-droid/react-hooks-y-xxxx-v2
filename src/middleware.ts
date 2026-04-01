@@ -3,13 +3,11 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   // 1. Ambil token dari cookie
-  // Nama 'token' ini harus sama dengan yang ada di fungsi handleLogout tadi
   const token = request.cookies.get('token');
 
   const { pathname } = request.nextUrl;
 
-  // 2. Tentukan halaman mana saja yang butuh login
-  // Meskipun foldernya (authenticated), di URL tetap ditulis /home, /game-eek, dll.
+  // 2. Halaman mana saja yang butuh login
   const protectedPaths = ['/home', '/game-eek', '/poop-survivors'];
 
   // 3. Cek apakah user sedang mencoba akses halaman terproteksi
