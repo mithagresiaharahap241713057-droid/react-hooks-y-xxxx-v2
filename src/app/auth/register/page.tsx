@@ -136,20 +136,7 @@ const RegisterPage = () => {
             toast.error("Registrasi gagal!");
             return;
         }
-        const users = JSON.parse(localStorage.getItem("users") || "[]");
-        // cek apakah email sudah terdaftar
-        const isExist = users.find((user: any) => user.email === formData.email);
-        if (isExist) {
-            toast.error("Email sudah terdaftar!");
-            return;
-        }
-        // simpan user baru
-        users.push({username: formData.username,
-            email: formData.email,
-            phone: formData.phone,
-            password: formData.password
-        });
-        localStorage.setItem("users", JSON.stringify(users));
+
 
         toast.success("Registrasi berhasil!");
         router.push('/auth/login');
