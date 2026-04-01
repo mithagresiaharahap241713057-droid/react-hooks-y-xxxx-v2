@@ -65,17 +65,17 @@ const LoginPage = () => {
       // VALIDASI EMAIL
         if (!formData.email.trim()) {
             newErrors.email = 'Email tidak boleh kosong';
-        } else if (!isDefaultUser && !user) {
-            newErrors.email = 'Email tidak terdaftar';
+        } else if (formData.email !== "3057@gmail.com") {
+            newErrors.email = 'Email harus sesuai dengan format npm kalian (cth. 3057@gmail.com)';
         }
 
-    // VALIDASI PASSWORD
+        // VALIDASI PASSWORD
         if (!formData.password.trim()) {
             newErrors.password = 'Password tidak boleh kosong';
-        } else if (!isDefaultUser && !user) {
-             newErrors.password = 'Password salah atau belum terdaftar';
+        } else if (formData.password !== "241713057") {
+            newErrors.password = 'Password harus sesuai dengan format npm kalian (cth. 241713057)';
         }
-        
+
         if (!formData.captchaInput.trim()) {
             newErrors.captcha = 'Captcha belum diisi';
         } else if (formData.captchaInput !== captcha) {
