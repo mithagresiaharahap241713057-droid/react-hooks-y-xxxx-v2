@@ -9,7 +9,6 @@ export default function HomePage() {
 
   const handleLogout = () => {
     // 1. Logika Hapus Cookie Login (Sesuai Middleware)
-
     
     // 2. Redirect ke Google
     window.location.href = "/auth/login";
