@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { XCircle, ArrowLeft } from "lucide-react"; // Opsional: jika ingin pakai icon library
+import { XCircle, ArrowLeft } from "lucide-react"; 
 
 export default function NotAuthorized() {
   return (
@@ -12,7 +12,7 @@ export default function NotAuthorized() {
         {/* Kontainer Gambar/Video */}
         <div className="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-black shadow-inner">
           <img 
-            src="/MITHA.gif" // Ganti dengan path file video/gambar kamu
+            src="/MITHA.gif" 
             alt="ketikkan keyboard"
             className="w-full h-full object-cover"
           />
