@@ -4,10 +4,10 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 
 // --- KONFIGURASI GAME AREA ---
-const GRID_SIZE = 20; // Ukuran kotak dalam grid (px)
-const WIDTH = 30;     // Jumlah kotak horizontal (misal: 600px / 20)
-const HEIGHT = 18;    // Jumlah kotak vertikal (misal: 360px / 20)
-const INITIAL_SPEED = 180; // Kecepatan awal (ms per gerak), semakin kecil semakin cepat
+const GRID_SIZE = 20; 
+const WIDTH = 30;     
+const HEIGHT = 18;    
+const INITIAL_SPEED = 180; 
 
 // Tipe data untuk posisi (koordinat x,y)
 interface Position {
@@ -23,9 +23,9 @@ const getRandomPosition = (): Position => ({
 
 export default function PoopSurvivorsSnakePage() {
   // --- STATE CORE GAME ---
-  const [snake, setSnake] = useState<Position[]>([{ x: 15, y: 9 }]); // Posisi awal cacing di tengah
-  const [coin, setCoin] = useState<Position>(getRandomPosition()); // Posisi awal koin
-  const [direction, setDirection] = useState<Position>({ x: 0, y: 0 }); // Awal diam (pilih arah untuk mulai)
+  const [snake, setSnake] = useState<Position[]>([{ x: 15, y: 9 }]); 
+  const [coin, setCoin] = useState<Position>(getRandomPosition()); 
+  const [direction, setDirection] = useState<Position>({ x: 0, y: 0 }); 
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -35,7 +35,6 @@ export default function PoopSurvivorsSnakePage() {
   const gameAreaRef = useRef<HTMLDivElement>(null);
 
   // --- LOGIKA UTAMA (SNAKE) ---
-
   // 1. Fungsi Reset Game
   const resetGame = useCallback(() => {
     if (score > highScore) setHighScore(score);
@@ -54,14 +53,14 @@ export default function PoopSurvivorsSnakePage() {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isGameRunning && (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight")) {
-          setIsGameRunning(true); // Mulai game saat tombol arah ditekan pertama kali
+          setIsGameRunning(true); 
       }
 
       let newDirection: Position = direction;
 
       switch (e.key) {
         case "ArrowUp":
-          if (direction.y === 0) newDirection = { x: 0, y: -1 }; // Cegah balik arah instan
+          if (direction.y === 0) newDirection = { x: 0, y: -1 }; 
           break;
         case "ArrowDown":
           if (direction.y === 0) newDirection = { x: 0, y: 1 };
@@ -87,18 +86,17 @@ export default function PoopSurvivorsSnakePage() {
     const gameLoop = setInterval(() => {
       setSnake((prevSnake) => {
         const newSnake = [...prevSnake];
-        const head = { ...newSnake[0] }; // Copy kepala saat ini
+        const head = { ...newSnake[0] }; 
 
         // Hitung posisi kepala baru
         head.x += direction.x;
         head.y += direction.y;
 
         // --- CEK TABRAKAN ---
-
         // A. Cek Tabrakan Dinding
         if (head.x < 0 || head.x >= WIDTH || head.y < 0 || head.y >= HEIGHT) {
           setIsGameOver(true);
-          return prevSnake; // Jangan gerak lagi
+          return prevSnake; 
         }
 
         // B. Cek Tabrakan Badan Sendiri
@@ -113,15 +111,11 @@ export default function PoopSurvivorsSnakePage() {
         if (head.x === coin.x && head.y === coin.y) {
           // Makan Koin!
           setScore((s) => s + 10);
-          setCoin(getRandomPosition()); // Pindah koin
-          // Cacing tidak dipotong ekornya (jadi tambah panjang)
-          // Opsional: percepat sedikit setiap makan
+          setCoin(getRandomPosition()); 
           setSpeed(s => Math.max(50, s - 2)); 
         } else {
-          // Tidak makan koin, potong ekor agar panjang tetap sama
           newSnake.pop(); 
         }
-
         // Tambahkan kepala baru di depan
         newSnake.unshift(head);
         return newSnake;
@@ -179,7 +173,7 @@ export default function PoopSurvivorsSnakePage() {
             {!isGameRunning && !isGameOver && (
                 <div className="absolute inset-0 bg-[#0a0e17]/95 rounded-2xl flex flex-col items-center justify-center backdrop-blur-sm z-30">
                     <h2 className="text-4xl font-bold text-emerald-300 mb-6 drop-shadow-[0_0_10px_emerald]">Siap Main?</h2>
-                    <p className="text-emerald-100/70 text-lg mb-6 font-mono">Tekan Panah Apa Saja untuk Mulai</p>
+                    <p className="text-emerald-100/70 text-lg mb-6 font-mono">Tekan Panah Apa Saja ↑ ↓ ← → Keyboard untuk Mulai</p>
                     <div className="text-6xl animate-pulse">🐍</div>
                 </div>
             )}
@@ -187,7 +181,7 @@ export default function PoopSurvivorsSnakePage() {
             {isGameOver && (
                 <div className="absolute inset-0 bg-red-950/90 rounded-2xl flex flex-col items-center justify-center backdrop-blur-sm z-20 p-10 border-4 border-red-500">
                     <h3 className="text-6xl font-black text-red-500 mb-3 tracking-tighter drop-shadow-[0_0_15px_#ef4444]">GAME OVER</h3>
-                    <p className="text-xl text-white/80 mb-8 text-center">Cacing menabrak! Poin Tisu yang kamu kumpul: <span className="text-3xl font-bold text-emerald-300">{score}</span></p>
+                    <p className="text-xl text-white/80 mb-8 text-center">Cacing menabrak!Poin yang kamu kumpul: <span className="text-3xl font-bold text-emerald-300">{score}</span></p>
                     <button onClick={resetGame} className="bg-red-600 text-white px-12 py-3 rounded-xl font-bold text-xl hover:bg-red-500 transition-all shadow-lg active:scale-95 border-2 border-red-400">
                         Coba Lagi
                     </button>
@@ -195,8 +189,7 @@ export default function PoopSurvivorsSnakePage() {
             )}
 
             {/* --- RENDERING GRID ELEMENTS --- */}
-
-            {/* A. Menggambar Koin (💰) */}
+            {/* A. Koin (💰) */}
             <div 
               style={{ 
                   left: `${coin.x * GRID_SIZE}px`, 
@@ -209,7 +202,7 @@ export default function PoopSurvivorsSnakePage() {
               💰
             </div>
 
-            {/* B. Menggambar Cacing (🐍 - Segmen) */}
+            {/* B. Cacing (🐍 - Segmen) */}
             {snake.map((segment, index) => (
                 <div 
                   key={index}
@@ -218,8 +211,8 @@ export default function PoopSurvivorsSnakePage() {
                       top: `${segment.y * GRID_SIZE}px`, 
                       width: `${GRID_SIZE}px`, 
                       height: `${GRID_SIZE}px`,
-                      borderRadius: index === 0 ? '5px' : '2px', // Kepala lebih kotak dikit
-                      zIndex: index === 0 ? 11 : 10 // Kepala di atas badan
+                      borderRadius: index === 0 ? '5px' : '2px', 
+                      zIndex: index === 0 ? 11 : 10 
                   }}
                   className={`absolute ${index === 0 ? 'bg-emerald-300 shadow-[0_0_10px_emerald]' : 'bg-emerald-600'} border border-emerald-950`}
                 >
@@ -227,7 +220,7 @@ export default function PoopSurvivorsSnakePage() {
                 </div>
             ))}
             
-            {/* Grid Lines (Opsional, untuk visualisasi) */}
+            {/* Grid Lines */}
             <div className="absolute inset-0 opacity-10" style={{
                 backgroundImage: `linear-gradient(#1a2233 1px, transparent 1px), linear-gradient(90deg, #1a2233 1px, transparent 1px)`,
                 backgroundSize: `${GRID_SIZE}px ${GRID_SIZE}px`
@@ -235,7 +228,7 @@ export default function PoopSurvivorsSnakePage() {
 
         </div>
 
-        {/* --- TOMBOL BACK TO MENU (Sesuai Desain Asli) --- */}
+        {/* --- TOMBOL BACK TO MENU */}
         <Link href="/home" className="bg-[#334155] text-white px-10 py-3 rounded-xl font-semibold text-lg hover:bg-[#1e293b] transition-colors shadow-md active:scale-95 border-2 border-white/10">
           Back to Game Selection
         </Link>
