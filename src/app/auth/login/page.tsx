@@ -51,16 +51,29 @@ const LoginPage = () => {
 
         const newErrors: ErrorObject = {};
 
+        // ambil data user dari localStorage
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        // cari user
+        const user = users.find(
+            (u: any) =>
+                u.email === formData.email &&
+            u.password === formData.password
+        );
+        // VALIDASI EMAIL
         if (!formData.email.trim()) {
             newErrors.email = 'Email tidak boleh kosong';
         } else if (formData.email !== "3057@gmail.com") {
             newErrors.email = 'Email harus sesuai dengan format npm kalian (cth. 3057@gmail.com)';
+        } else if (!user) {
+            newErrors.email = 'Email belum terdaftar';
         }
-
+        // VALIDASI PASSWORD
         if (!formData.password.trim()) {
             newErrors.password = 'Password tidak boleh kosong';
         } else if (formData.password !== "241713057") {
             newErrors.password = 'Password harus sesuai dengan format npm kalian (cth. 241713057)';
+        } else if (!user) {
+            newErrors.password = 'Password salah atau belum terdaftar';
         }
 
         if (!formData.captchaInput.trim()) {
@@ -164,6 +177,7 @@ const LoginPage = () => {
                 {/* CAPTCHA */}
                 <div className="space-y-2">
                     <div className="flex items-center gap-2">
+                        <label>Captcha:</label>
                         <span className="bg-gray-200 px-3 py-1 rounded font-mono">
                             {captcha}
                         </span>
