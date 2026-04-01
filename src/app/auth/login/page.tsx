@@ -206,7 +206,7 @@ const LoginPage = () => {
                     onClick={() => {
                         setAttempts(3);
                         setCaptcha(generateCaptcha());
-                        toast.info("Kesempatan direset!");
+                        toast.info("Kesempatan login berhasil di reset!");
                     }}
                     className={`w-full py-2.5 rounded-lg mt-2 font-semibold
                     ${attempts === 0 ? 'bg-green-600 text-white' : 'bg-gray-400 text-white'}`}
