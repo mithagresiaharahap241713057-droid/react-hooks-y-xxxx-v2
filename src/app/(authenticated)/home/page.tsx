@@ -8,7 +8,7 @@ export default function HomePage() {
   const router = useRouter();
 
   const handleLogout = () => {
-    // 1. Logika Hapus Cookie Login (Sesuai Middleware)
+    // 1. Logika Hapus Cookie Login 
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     // 2. Redirect ke Login
     window.location.href = "/auth/login";
@@ -43,7 +43,7 @@ export default function HomePage() {
         {/* Game Buttons Container */}
         <div className="flex flex-col sm:flex-row gap-4 mb-12 w-full justify-center items-center">
           
-          {/* Tombol Game 1 (Oranye) - Game EEK */}
+          {/* Tombol Game 1 (Orange) - Game EEK */}
           <Link 
             href="/game-eek" 
             className="flex items-center justify-center gap-3 bg-orange-600 text-white px-8 py-4 rounded-xl shadow-md hover:bg-orange-700 transition-all font-bold active:scale-95 w-full sm:w-auto"
@@ -51,7 +51,7 @@ export default function HomePage() {
             Game EEK <span className="text-xl">💩</span>
           </Link>
           
-          {/* GANTI DI SINI: Tombol Game 2 (Emerald) - Snake Coin */}
+          {/* Tombol Game 2 (Emerald) - Snake Coin */}
           <Link 
             href="/snack-koin" 
             className="flex items-center justify-center gap-3 bg-emerald-600 text-white px-8 py-4 rounded-xl shadow-md hover:bg-emerald-700 transition-all font-bold active:scale-95 w-full sm:w-auto"
